@@ -212,13 +212,12 @@ class Product(db.Model):
 
         :return: a collection of Products with that price
         :rtype: list
-
         """
         logger.info("Processing price query for %s ...", price)
         price_value = price
         if isinstance(price, str):
             price_value = Decimal(price.strip(' "'))
-        return cls.query.filter(cls.price == price_value)
+        return cls.query.filter(cls.price == price_value).all()  # Call .all() here
 
     @classmethod
     def find_by_availability(cls, available: bool = True) -> list:
